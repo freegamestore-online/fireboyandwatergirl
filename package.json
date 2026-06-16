@@ -1,0 +1,14 @@
+{
+  "name": "fireboyandwatergirl",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "engines": { "node": ">=22" },
+  "pnpm": { "onlyBuiltDependencies": ["esbuild"] },
+  "scripts": {
+    "dev": "pnpm --filter @fireboyandwatergirl/web dev",
+    "build": "pnpm --filter @fireboyandwatergirl/web build",
+    "preview": "pnpm --filter @fireboyandwatergirl/web preview",
+    "typecheck": "pnpm --filter @fireboyandwatergirl/web exec tsc -b",
+    "test": "pnpm --filter @fireboyandwatergirl/web test"
+  }
+}
