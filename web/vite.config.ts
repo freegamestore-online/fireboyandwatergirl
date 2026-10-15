@@ -35,9 +35,9 @@ export default defineConfig({
         ],
       },
       manifest: {
-        name: "fireboyandwatergirl",
-        short_name: "fireboyandwatergirl",
-        description: "fireboyandwatergirl — free forever",
+        name: "Fire & Ice Duo",
+        short_name: "Fire & Ice Duo",
+        description: "Fire & Ice Duo — free forever",
         start_url: "/",
         display: "standalone",
         background_color: "#0f0f0f",

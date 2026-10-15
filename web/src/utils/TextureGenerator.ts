@@ -1,59 +1,63 @@
 import Phaser from "phaser";
 
+// Draws a closed polygon with the path API (fillPoints needs Vector2 instances).
+function fillPoly(g: Phaser.GameObjects.Graphics, pts: { x: number; y: number }[]) {
+  g.beginPath();
+  g.moveTo(pts[0]!.x, pts[0]!.y);
+  for (const p of pts.slice(1)) g.lineTo(p.x, p.y);
+  g.closePath();
+  g.fillPath();
+}
+
 export class TextureGenerator {
   static generateAll(scene: Phaser.Scene) {
     const g = scene.add.graphics();
 
-    // ── FIREBOY (28×36) ──────────────────────────────────────────────────
-    g.fillStyle(0xdd3311, 1);
-    g.fillRect(5, 12, 18, 18);
-    g.fillStyle(0xaa2200, 1);
-    g.fillRect(5, 28, 7, 8);
-    g.fillRect(16, 28, 7, 8);
-    g.fillStyle(0xdd3311, 1);
-    g.fillRect(1, 14, 5, 10);
-    g.fillRect(22, 14, 5, 10);
-    g.fillStyle(0xff6644, 1);
-    g.fillCircle(14, 8, 9);
-    g.fillStyle(0xffcc00, 1);
-    g.fillTriangle(6, 5, 10, -3, 13, 4);
-    g.fillTriangle(12, 2, 15, -6, 18, 2);
-    g.fillTriangle(17, 4, 21, -2, 24, 5);
-    g.fillStyle(0xffffff, 1);
-    g.fillCircle(9, 7, 3);
-    g.fillCircle(19, 7, 3);
-    g.fillStyle(0x000000, 1);
-    g.fillCircle(10, 7, 1.5);
-    g.fillCircle(20, 7, 1.5);
-    g.fillStyle(0xffffff, 1);
-    g.fillRect(9, 5, 1.5, 1.5);
-    g.fillRect(19, 5, 1.5, 1.5);
+    // ── FIRE SPRITE (28×36): flame-shaped, no face ───────────────────────
+    // Texture key stays "fireboy" so level/scene code is unchanged.
+    g.fillStyle(0xff4b12, 1);
+    fillPoly(g, [
+      { x: 14, y: 0 }, { x: 22, y: 12 }, { x: 25, y: 22 },
+      { x: 22, y: 31 }, { x: 14, y: 35 }, { x: 6, y: 31 },
+      { x: 3, y: 22 }, { x: 6, y: 12 },
+    ]);
+    g.fillStyle(0xff9a1f, 1);
+    fillPoly(g, [
+      { x: 14, y: 10 }, { x: 19, y: 20 }, { x: 19, y: 29 },
+      { x: 14, y: 33 }, { x: 9, y: 29 }, { x: 9, y: 20 },
+    ]);
+    g.fillStyle(0xffe066, 1);
+    fillPoly(g, [
+      { x: 14, y: 20 }, { x: 17, y: 27 }, { x: 14, y: 31 }, { x: 11, y: 27 },
+    ]);
+    g.fillStyle(0xffffff, 0.6);
+    g.fillCircle(11, 13, 1.5);
+    g.fillCircle(18, 17, 1);
     g.generateTexture("fireboy", 28, 36);
     g.clear();
 
-    // ── WATERGIRL (28×36) ────────────────────────────────────────────────
-    g.fillStyle(0x2288cc, 1);
-    g.fillRect(5, 12, 18, 18);
-    g.fillStyle(0x1166aa, 1);
-    g.fillTriangle(4, 28, 14, 22, 24, 28);
-    g.fillRect(6, 28, 7, 8);
-    g.fillRect(15, 28, 7, 8);
-    g.fillStyle(0x2288cc, 1);
-    g.fillRect(1, 14, 5, 10);
-    g.fillRect(22, 14, 5, 10);
-    g.fillStyle(0x55bbee, 1);
-    g.fillCircle(14, 8, 9);
-    g.fillStyle(0x88ddff, 1);
-    g.fillTriangle(8, 0, 14, 10, 20, 0);
-    g.fillStyle(0xffffff, 1);
-    g.fillCircle(9, 7, 3);
-    g.fillCircle(19, 7, 3);
-    g.fillStyle(0x004488, 1);
-    g.fillCircle(10, 7, 1.5);
-    g.fillCircle(20, 7, 1.5);
-    g.fillStyle(0xffffff, 1);
-    g.fillRect(9, 5, 1.5, 1.5);
-    g.fillRect(19, 5, 1.5, 1.5);
+    // ── ICE SPRITE (28×36): faceted crystal, no face ─────────────────────
+    // Texture key stays "watergirl" so level/scene code is unchanged.
+    g.fillStyle(0x66d9f5, 1);
+    fillPoly(g, [
+      { x: 14, y: 0 }, { x: 24, y: 9 }, { x: 24, y: 27 },
+      { x: 14, y: 36 }, { x: 4, y: 27 }, { x: 4, y: 9 },
+    ]);
+    g.fillStyle(0x3aaee0, 1);
+    fillPoly(g, [
+      { x: 14, y: 0 }, { x: 4, y: 9 }, { x: 4, y: 27 }, { x: 14, y: 18 },
+    ]);
+    g.fillStyle(0xd8f8ff, 1);
+    fillPoly(g, [
+      { x: 14, y: 0 }, { x: 24, y: 9 }, { x: 24, y: 27 }, { x: 14, y: 18 },
+    ]);
+    g.lineStyle(1, 0xffffff, 0.7);
+    g.lineBetween(14, 0, 14, 36);
+    g.lineBetween(4, 9, 24, 27);
+    g.lineBetween(24, 9, 4, 27);
+    g.fillStyle(0xffffff, 0.9);
+    g.fillRect(8, 8, 2, 2);
+    g.fillRect(19, 26, 2, 2);
     g.generateTexture("watergirl", 28, 36);
     g.clear();
 
